@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Uncomment in P2.1, when the Terraform folders exist.
+  # - package-ecosystem: terraform
+  #   directories: ["/bootstrap", "/live/aws/*", "/modules/*"]
+  #   schedule:
+  #     interval: weekly
+  #   groups:
+  #     providers:
+  #       patterns: ["*"]
+
+  # Uncomment in P2.5 for Terratest. Add "/functions/*" in P8.4.
+  # - package-ecosystem: gomod
+  #   directories: ["/test"]
+  #   schedule:
+  #     interval: weekly
+  #   groups:
+  #     go-minor-and-patch:
+  #       update-types: [minor, patch]
