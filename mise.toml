@@ -1,0 +1,5 @@
+[tools]
+conftest = "0.71.1"
+terraform = "1.16.5"
+tflint = "0.64.0"
+trivy = "0.75.0"
