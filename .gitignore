@@ -1,3 +1,7 @@
+#Kubernetes files
+k8s/platform/**/*.tgz
+
+#Terraform files
 .terraform/
 *.tfstate
 *.tfstate.*
