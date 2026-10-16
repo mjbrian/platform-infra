@@ -1,1 +1,5 @@
-k8s/**/chart/charts/
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+tfplan*
