@@ -7,3 +7,6 @@ k8s/platform/**/*.tgz
 *.tfstate.*
 crash.log
 tfplan*
+
+# volume files
+volume/*
