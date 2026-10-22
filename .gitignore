@@ -1,1 +1,9 @@
-k8s/**/chart/charts/
+#Kubernetes files
+k8s/platform/**/*.tgz
+
+#Terraform files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+tfplan*
