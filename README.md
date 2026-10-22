@@ -18,6 +18,18 @@ See [platform-bootstrap](https://github.com/mjbrian/platform-bootstrap) for how 
 | `functions/` | Lambda code deployed by Terraform |
 | `test/` | Terratest suites |
 
+## Running locally
+On first setup, from the repo root run:
+```bash
+lstk start
+lstk stop
+```
+On every session be sure to run the following:
+From the repo root run:
+```bash
+ docker-compose -f localstack-docker-compose.yml
+ ```
+
 ## Roots, targets, and layers
 
 A root is a folder Terraform applies. A target is an environment and region, such as `prod-us-west-2`. Each root is written once, and each target it runs in has a pair of config files in its `env/` folder. Dev and prod differ only by those files.
