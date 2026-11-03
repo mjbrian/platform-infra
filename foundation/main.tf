@@ -43,6 +43,7 @@ provider "aws" {
 
   endpoints {
     dynamodb       = var.aws_endpoint
+    iam            = var.aws_endpoint
     s3             = var.aws_endpoint
     secretsmanager = var.aws_endpoint
     sts            = var.aws_endpoint
@@ -86,6 +87,41 @@ resource "aws_secretsmanager_secret" "bootstrap_check" {
 resource "aws_secretsmanager_secret_version" "bootstrap_check" {
   secret_id     = aws_secretsmanager_secret.bootstrap_check.id
   secret_string = "ok"
+}
+
+resource "aws_iam_role" "eks_cluster" {
+  name = "lab-eks-cluster"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { Service = "eks.amazonaws.com" }
+      Action    = ["sts:AssumeRole", "sts:TagSession"]
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "eks_cluster" {
+  role       = aws_iam_role.eks_cluster.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+}
+
+resource "aws_iam_role" "eks_node" {
+  name = "lab-eks-node"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+      Action    = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "eks_node" {
+  for_each   = toset(["AmazonEKSWorkerNodePolicy", "AmazonEKS_CNI_Policy"])
+  role       = aws_iam_role.eks_node.name
+  policy_arn = "arn:aws:iam::aws:policy/${each.key}"
 }
 
 output "state_bucket" {
