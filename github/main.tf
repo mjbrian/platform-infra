@@ -42,6 +42,15 @@ resource "github_repository" "platform" {
   delete_branch_on_merge = true
   vulnerability_alerts   = true
   archive_on_destroy     = true
+
+  security_and_analysis {
+    secret_scanning {
+      status = "enabled"
+    }
+    secret_scanning_push_protection {
+      status = "enabled"
+    }
+  }
 }
 
 resource "github_repository_ruleset" "protect_main" {

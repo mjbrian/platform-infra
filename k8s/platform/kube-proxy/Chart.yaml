@@ -1,0 +1,4 @@
+apiVersion: v2
+name: kube-proxy
+description: kube-proxy for clusters whose built in one is turned off
+version: 0.1.0

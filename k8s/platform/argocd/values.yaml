@@ -1,0 +1,11 @@
+global:
+  domain: argocd.127.0.0.1.sslip.io
+configs:
+  params:
+    server.insecure: true
+  cm:
+    timeout.reconciliation: 60s
+dex:
+  enabled: false
+notifications:
+  enabled: false

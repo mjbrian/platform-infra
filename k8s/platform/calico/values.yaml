@@ -1,0 +1,13 @@
+installation:
+  cni:
+    type: Calico
+  calicoNetwork:
+    containerIPForwarding: Enabled
+    ipPools:
+      - cidr: 10.42.0.0/16
+        blockSize: 26
+        encapsulation: VXLANCrossSubnet
+        natOutgoing: Enabled
+        nodeSelector: all()
+apiServer:
+  enabled: false
