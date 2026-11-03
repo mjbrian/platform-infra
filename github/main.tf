@@ -40,8 +40,8 @@ resource "github_repository" "platform" {
   allow_rebase_merge     = false
   allow_squash_merge     = true
   delete_branch_on_merge = true
-  vulnerability_alerts   = true
-  archive_on_destroy     = true
+  # vulnerability_alerts   = true
+  archive_on_destroy = true
 
   security_and_analysis {
     secret_scanning {
