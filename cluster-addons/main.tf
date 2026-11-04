@@ -38,10 +38,6 @@ variable "kube_proxy_version" {
   type = string
 }
 
-variable "calico_chart_version" {
-  type = string
-}
-
 variable "gitops_dir" {
   type        = string
   description = "Where bootstrap keeps its copy of platform-gitops"
@@ -57,8 +53,9 @@ variable "profile" {
 }
 
 locals {
-  emulated = var.aws_endpoint != null
-  exec_env = local.emulated ? { AWS_ENDPOINT_URL = var.aws_endpoint } : {}
+  emulated             = var.aws_endpoint != null
+  exec_env             = local.emulated ? { AWS_ENDPOINT_URL = var.aws_endpoint } : {}
+  calico_chart_version = yamldecode(file("${var.gitops_dir}/apps/calico.yaml")).spec.template.spec.sources[0].targetRevision
 }
 
 provider "aws" {
@@ -104,5 +101,5 @@ provider "helm" {
 module "base" {
   source               = "./modules/cluster-base"
   kube_proxy_version   = var.kube_proxy_version
-  calico_chart_version = var.calico_chart_version
+  calico_chart_version = local.calico_chart_version
 }
